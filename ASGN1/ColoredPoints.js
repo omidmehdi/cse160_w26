@@ -115,7 +115,7 @@ function addActionsForHtmlUI() {
   document.getElementById('pointButton').onclick = function() { g_selectedType = POINT; };
   document.getElementById('triButton').onclick = function() { g_selectedType = TRIANGLE; };
   document.getElementById('circleButton').onclick = function() { g_selectedType = CIRCLE; };
-  
+  document.getElementById('pictureButton').onclick = function() { drawPicture(); };
 
   // --- SCATTER BUTTON ---
   document.getElementById('scatterButton').onclick = function() {
