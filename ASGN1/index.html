@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Change a point color</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+    <p id="numdot"> xxx </p>
+
+    <!-- Color Buttons -->
+    <button type="button" id="green">Green</button>
+    <button type="button" id="blue">Blue</button>
+    <button type="button" id="red">Red</button>
+    
+    <!-- Action Buttons -->
+    <button type="button" id="clearButton">Clear</button>
+
+    <!-- Shape Buttons -->
+    <p>
+      <button type="button" id="pointButton">Point</button>
+      <button type="button" id="triButton">Triangle</button>
+      <button type="button" id="circleButton">Circle</button>
+      <button type="button" id="pictureButton">Picture</button>
+    </p>
+
+    <!-- SCatter and Rainbow Mode Buttons -->
+    <p>
+      <button type="button" id="scatterButton">Scatter</button>
+
+      <button type="button" id="rainbow">Rainbow On</button>
+      <button type="button" id="off">Rainbow Off</button>
+    </p>
+    
+    <!-- Color Sliders -->
+    <p>
+    Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide">
+    Green <input type="range" min="0" max="100" value="100" class="slider" id="greenSlide">
+    Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlide">
+    </p>
+
+    <!-- Size Slider -->
+    <p>
+    Size <input type="range" min="5" max="40" value="5" class="slider" id="sizeSlide">
+    </p>
+
+    <!-- Segment Slider (for Circles) -->
+    <p>
+    Segment <input type="range" min="0" max="40" value="10" class="slider" id="segmentSlide">
+    </p>
+
+        <p>
+      Notes for grader: Please see the scatter and rainbow mode buttons. The scatter button moves all the shapes around the canvas, including the painting and the rainbow button allows you to draw different 
+    </p>
+    <p>
+      <img src="IMG_6640.jpg" alt="Paper Sketch" style="width: 400px; height: auto;">
+    </p>
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    
+    <!-- Shape Classes -->
+    <script src="Point.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    
+    <!-- Main Logic -->
+    <script src="ColoredPoints.js"></script>
+  </body>
+</html>
