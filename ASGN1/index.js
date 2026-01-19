@@ -186,7 +186,7 @@ function addActionsForHtmlUI() {
   document.getElementById('pointButton').onclick = function() { g_selectedType = POINT; };
   document.getElementById('triButton').onclick = function() { g_selectedType = TRIANGLE; };
   document.getElementById('circleButton').onclick = function() { g_selectedType = CIRCLE; };
-  document.getElementById('pictureButton').onclick = function() { renderPicture(); };
+  document.getElementById('pictureButton').onclick = function() { drawPicture(); };
 
   // Slider Events (Color)
   document.getElementById('redSlide').addEventListener('mouseup', function() { g_selectedColor[0] = this.value/100; });
