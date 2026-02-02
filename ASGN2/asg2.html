@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Assignment 2: Blocky Bunny</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            gap: 20px;
+        }
+
+        #canvas-area {
+            position: relative;
+        }
+
+        canvas {
+            background-color: black;
+            border-radius: 4px;
+            cursor: crosshair;
+        }
+
+        #fps {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: lime;
+            font-family: monospace;
+            font-weight: bold;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        /* Sidebar Styling */
+        #controls {
+            width: 320px;
+            height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        h3 { margin-top: 0; margin-bottom: 10px; color: #333; font-size: 1.1em; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        .control-group { margin-bottom: 15px; }
+        
+        label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #555;
+            margin-bottom: 2px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            margin: 0 0 8px 0;
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 8px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+
+        button:hover { background-color: #2980b9; }
+        
+        #explodeButton { background-color: #e74c3c; }
+        #explodeButton:hover { background-color: #c0392b; }
+
+    </style>
+</head>
+
+<body onload="main()">
+    <div id="container">
+        <!-- Canvas Area -->
+        <div id="canvas-area">
+            <div id="fps">FPS: 0</div>
+            <canvas id="webgl" width="600" height="600">
+                Please use a browser that supports "canvas"
+            </canvas>
+        </div>
+
+        <!-- Controls Sidebar -->
+        <div id="controls">
+            <!-- Animation Controls -->
+            <div class="control-group">
+                <h3>Animation Controls</h3>
+                <div class="button-group">
+                    <button type="button" id="animToggleButton">Toggle Walk</button>
+                    <button type="button" id="explodeButton">Explode!</button>
+                </div>
+                <div class="button-group">
+                    <button type="button" id="resetButton">Reset Pose</button>
+                </div>
+                <p style="font-size: 0.8em; color: #777;">
+                    <b>Shift + Click</b> on canvas to Explode.<br>
+                    <b>Drag Mouse</b> to rotate view.
+                </p>
+            </div>
+
+            <!-- Global Camera -->
+            <div class="control-group">
+                <h3>Camera Angle</h3>
+                <label>Angle Y (Horizontal) <span id="val_angleY">0</span></label>
+                <input type="range" min="-180" max="180" value="0" id="angleY">
+                
+                <label>Angle X (Vertical) <span id="val_angleX">0</span></label>
+                <input type="range" min="-90" max="90" value="0" id="angleX">
+
+                <label>Zoom (Z) <span id="val_zoom">0</span></label>
+                <input type="range" min="-20" max="20" value="0" id="zoomSlide">
+            </div>
+
+            <!-- Head -->
+            <div class="control-group">
+                <h3>Head Controls</h3>
+                <label>Head Turn <span id="val_head">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="headSlide">
+                <label>Ears Wiggle <span id="val_ears">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="earSlide">
+            </div>
+
+            <!-- Front Left Leg -->
+            <div class="control-group">
+                <h3>Front Left Leg</h3>
+                <label>Upper Leg <span id="val_fl_u">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="fl_leg">
+                <label>Lower Leg <span id="val_fl_k">0</span></label>
+                <input type="range" min="0" max="90" value="0" id="fl_calf">
+                <label>Left Foot <span id="val_footL">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="footSlideL">
+            </div>
+
+            <!-- Front Right Leg -->
+            <div class="control-group">
+                <h3>Front Right Leg</h3>
+                <label>Upper Leg <span id="val_fr_u">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="fr_leg">
+                <label>Lower Leg <span id="val_fr_k">0</span></label>
+                <input type="range" min="0" max="90" value="0" id="fr_calf">
+                <label>Right Foot <span id="val_footR">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="footSlideR">
+            </div>
+
+            <!-- Back Legs -->
+            <div class="control-group">
+                <h3>Back Legs</h3>
+                <label>Upper Leg <span id="val_bl_u">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="bl_leg">
+                <label>Knee <span id="val_bl_k">0</span></label>
+                <input type="range" min="0" max="90" value="0" id="bl_calf">
+            </div>
+            
+            <!-- Back Right -->
+            <div class="control-group">
+                <h3>Back Right Leg</h3>
+                <label>Upper Leg <span id="val_br_u">0</span></label>
+                <input type="range" min="-45" max="45" value="0" id="br_leg">
+                <label>Knee <span id="val_br_k">0</span></label>
+                <input type="range" min="0" max="90" value="0" id="br_calf">
+            </div>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    
+    <!-- Main Script -->
+    <script src="asg2.js"></script>
+</body>
+</html>
