@@ -400,8 +400,7 @@ function renderScene() {
     // Ears
     let earL = new Matrix4(headBase);
     earL.translate(-0.05, 0.35, 0.1);
-    // FLIPPED AXIS: (0, 0, 1)
-    earL.rotate(g_earAngle, 0, 0, 1); 
+    earL.rotate(g_earAngle, -1, 0, 1); 
     earL.scale(0.1, 0.5, 0.1);
     drawCube(earL, c_grey);
     let earLin = new Matrix4(earL);
@@ -411,8 +410,7 @@ function renderScene() {
 
     let earR = new Matrix4(headBase);
     earR.translate(-0.05, 0.35, -0.2);
-    // FLIPPED AXIS: (0, 0, 1)
-    earR.rotate(g_earAngle, 0, 0, 1); 
+    earR.rotate(g_earAngle, -1, 0, 1); 
     earR.scale(0.1, 0.5, 0.1);
     drawCube(earR, c_grey);
     let earRin = new Matrix4(earR);
