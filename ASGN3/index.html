@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Virtual World with Bunny</title>
+  </head>
+  <body onload="main()">
+    <div style="display: flex;">
+        <!-- Left Side: Canvas -->
+        <div style="margin-right: 20px;">
+            <canvas id="webgl" width="600" height="600">
+            Please use a browser that supports "canvas"
+            </canvas>
+            <p id="performance">FPS: 0</p>
+        </div>
+
+        <!-- Right Side: Controls -->
+        <div>
+            <h2>Controls</h2>
+            <p><b>WASD</b>: Move Camera</p>
+            <p><b>Q / E</b>: Pan Camera Left/Right</p>
+            <p><b>Mouse</b>: Look Around</p>
+            <hr>
+            <h3>Block Actions</h3>
+            <p><b>Click</b>: Add Block</p>
+            <p><b>Shift + Click</b>: Delete Block</p>
+            <p><i>The bunny lives in the center of the world.</i></p>
+        </div>
+    </div>
+
+<div>
+            <h2>Notes for Grader</h2>
+            <p><b>Procedural Generation:</b> A unique map layout is generated randomly every time the application starts, creating a different world on each refresh.</p>
+            <p><b>Game Objective:</b> The goal is to build a protective shelter for the bunny before night falls.</p>
+            <p><b>Time Cycle:</b> The environment transitions based on the number of blocks you place:</p>
+            <ul>
+                <li><b>Day:</b> 0-9 blocks placed.</li>
+                <li><b>Sunset:</b> 10-14 blocks placed (Hurry up!).</li>
+                <li><b>Night:</b> 15+ blocks placed.</li>
+            </ul>
+        </div>
+
+
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    
+    <script src="Cube.js"></script>
+    <script src="Camera.js"></script>
+    <script src="asg3.js"></script>
+  </body>
+</html>
