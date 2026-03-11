@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>ASG4: Lighting & Shading</title>
+    <style>
+        body { background-color: #202020; color: white; font-family: sans-serif; }
+        canvas { background-color: black; display: block; margin: 10px auto; }
+        .controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 10px; }
+        .control-group { background: #333; padding: 10px; border-radius: 8px; border: 1px solid #555; }
+        h3 { margin-top: 0; border-bottom: 1px solid #777; padding-bottom: 5px; font-size: 16px; }
+        label { display: inline-block; width: 90px; font-size: 14px; }
+        input[type="range"] { width: 120px; vertical-align: middle; }
+        button { cursor: pointer; padding: 5px 10px; margin: 2px; background: #444; color: white; border: 1px solid #777; }
+        button:hover { background: #555; }
+        p { font-size: 14px; margin: 5px 0; line-height: 1.4; }
+    </style>
+</head>
+
+<body onload="main()">
+
+    <canvas id="webgl" width="600" height="600"></canvas>
+    
+    <div style="text-align: center; margin-bottom: 10px;">
+        <span id="fps">FPS: 0</span>
+    </div>
+
+    <div class="controls">
+        <!-- NOTES TO GRADER -->
+        <div class="control-group" style="max-width: 300px;">
+            <h3>Notes to Grader</h3>
+            <p>Click on the window and drag to move around. Alternatively you can use the sliders in the Camera section.</p>
+            <br>
+            <p>Use anim light to move the light source around in a circle at a fixed Y position (adjust Light Y to move ). This can also be used with spotlight.</p>
+            <br>
+
+            <br>
+            <p>The smaller bunny on the end is an .obj model taken from the class files.</p>
+        </div>
+
+        <!-- LIGHTING CONTROLS -->
+        <div class="control-group">
+            <h3>Lighting</h3>
+            <button id="toggleLight">Light: ON</button>
+            <button id="toggleSpot">Spotlight: OFF</button>
+            <button id="toggleNormals">Normals: OFF</button>
+            <button id="toggleAnimLight">Anim Light: OFF</button>
+            <br><br>
+            <label>Light X:</label><input type="range" id="lightX" min="-500" max="500" value="0"><br>
+            <label>Light Y:</label><input type="range" id="lightY" min="-500" max="500" value="250"><br>
+            <label>Light Z:</label><input type="range" id="lightZ" min="-500" max="500" value="200"><br>
+            <br>
+            <label>Color R:</label><input type="range" id="lightR" min="0" max="100" value="100"><br>
+            <label>Color G:</label><input type="range" id="lightG" min="0" max="100" value="100"><br>
+            <label>Color B:</label><input type="range" id="lightB" min="0" max="100" value="100"><br>
+        </div>
+
+        <!-- CAMERA & GLOBAL -->
+        <div class="control-group">
+            <h3>Camera</h3>
+            <label>Rotate X:</label><input type="range" id="angleX" min="-90" max="90" value="0"><br>
+            <label>Rotate Y:</label><input type="range" id="angleY" min="-180" max="180" value="0"><br>
+            <label>Zoom:</label><input type="range" id="zoomSlide" min="-100" max="100" value="0"><br>
+            <br>
+            <button id="resetButton">Reset All</button>
+        </div>
+    </div>
+
+    <!-- Hidden inputs-->
+    <div style="display:none">
+        <input id="fl_leg" value="0"><input id="fl_calf" value="0">
+        <input id="fr_leg" value="0"><input id="fr_calf" value="0">
+        <input id="bl_leg" value="0"><input id="bl_calf" value="0">
+        <input id="br_leg" value="0"><input id="br_calf" value="0">
+        <!-- Hidden Animation/Joint inputs required by JS logic -->
+        <input id="headSlide" value="0">
+        <input id="earSlide" value="0">
+        <input id="footSlideL" value="0">
+        <input id="footSlideR" value="0">
+        <button id="animToggleButton">Hidden</button>
+    </div>
+
+    <!-- Libraries -->
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    
+    <!-- Main Application Script -->
+    <script src="asg4.js"></script>
+</body>
+</html>
